@@ -4,26 +4,26 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
-  ManyToOne,
   OneToMany,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../../tenants/entities/tenant.entity';
-import { User } from '../../users/entities/user.entity';
+import { Tenant } from '../tenants/entities/tenant.entity';
+import { User } from '../users/entities/user.entity';
 
 @Entity('chat_sessions')
 export class ChatSession {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Tenant, { eager: true })
+  @ManyToOne(() => Tenant)
   @JoinColumn({ name: 'tenant_id' })
   tenant: Tenant;
 
   @Column('uuid')
   tenantId: string;
 
-  @ManyToOne(() => User, { eager: true })
+  @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user: User;
 

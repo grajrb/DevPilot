@@ -6,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../../tenants/entities/tenant.entity';
+import { Tenant } from '../tenants/entities/tenant.entity';
 
 @Entity('vectors')
 export class Vector {
