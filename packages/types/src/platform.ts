@@ -1,6 +1,6 @@
 // Platform service types (NestJS backend)
 
-import { Tenant, User, ApiKey, Permission, Role } from './common';
+import { Permission } from './common';
 
 export type ServiceStatus = 'healthy' | 'degraded' | 'down';
 export type ServiceProtocol = 'http' | 'grpc' | 'graphql';

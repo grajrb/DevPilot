@@ -25,7 +25,6 @@
     "k8s:deploy": "cd infrastructure/k8s && kustomize build overlays/staging | kubectl apply -f -"
   },
   "devDependencies": {
-    "@arketype/tsconfig": "^0.1.0",
     "prettier": "^3.3.3",
     "turbo": "^2.3.0",
     "typescript": "^5.6.3"
