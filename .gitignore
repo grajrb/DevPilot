@@ -1,3 +1,5 @@
 .vscode
 .aider*
 .continue
+node_modules
+dist
