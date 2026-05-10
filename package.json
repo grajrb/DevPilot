@@ -1,0 +1,41 @@
+{
+  "name": "devpilot",
+  "version": "0.1.0",
+  "private": true,
+  "description": "DevPilot - Internal Developer Platform with AI Copilot",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "type-check": "turbo run type-check",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:generate": "cd apps/platform && npm run db:generate",
+    "db:migrate": "cd apps/platform && npm run db:migrate",
+    "db:push": "cd apps/platform && npm run db:push",
+    "db:seed": "cd apps/platform && npm run db:seed",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "k8s:deploy": "cd infrastructure/k8s && kustomize build overlays/staging | kubectl apply -f -"
+  },
+  "devDependencies": {
+    "@arketype/tsconfig": "^0.1.0",
+    "prettier": "^3.3.3",
+    "turbo": "^2.3.0",
+    "typescript": "^5.6.3"
+  },
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "resolutions": {
+    "uuid": "^10.0.0"
+  }
+}
