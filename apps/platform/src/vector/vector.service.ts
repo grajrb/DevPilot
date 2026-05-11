@@ -37,7 +37,7 @@ export class VectorService {
       .setParameter('queryEmbedding', queryEmbedding)
       .orderBy('similarity', 'DESC')
       .limit(limit)
-      .getRawResults();
+      .getRawMany();
 
     return results;
   }

@@ -21,7 +21,7 @@ export class Logger implements LoggerService {
   }
 
   debug(message: string, ...args: any[]) {
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env['NODE_ENV'] === 'development') {
       console.debug(`[${new Date().toISOString()}] [${this.context || 'DEBUG'}]`, message, ...args);
     }
   }

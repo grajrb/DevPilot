@@ -1,7 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Tenant } from '../entities/tenant.entity';
+import { Tenant } from './entities/tenant.entity';
 
 @Injectable()
 export class TenantsService {
@@ -25,7 +25,11 @@ export class TenantsService {
 
   async update(id: string, data: Partial<Tenant>): Promise<Tenant> {
     await this.tenantRepo.update(id, data);
-    return this.tenantRepo.findOne({ where: { id } });
+    const tenant = await this.tenantRepo.findOne({ where: { id } });
+    if (!tenant) {
+      throw new Error(`Tenant with id ${id} not found`);
+    }
+    return tenant;
   }
 
   async delete(id: string): Promise<void> {

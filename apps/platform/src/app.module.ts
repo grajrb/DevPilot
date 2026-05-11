@@ -3,14 +3,13 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { ScheduleModule } from '@nestjs/schedule';
 
 // Modules
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TenantsModule } from './tenants/tenants.module';
 import { RolesModule } from './roles/roles.module';
-import { RBACModule } from '../rbac/rbac.module';
+import { RBACModule } from './rbac/rbac.module';
 import { ServicesModule } from './services/services.module';
 import { ApiKeysModule } from './api-keys/api-keys.module';
 import { AuditModule } from './audit/audit.module';
@@ -19,8 +18,6 @@ import { ObservabilityModule } from './observability/observability.module';
 import { EvaluationsModule } from './evaluations/evaluations.module';
 import { CopilotModule } from './copilot/copilot.module';
 import { VectorModule } from './vector/vector.module';
-import { RedisCacheModule } from './cache/cache.module';
-import { QueueModule } from './queue/queue.module';
 
 // Config
 import configuration from './config/configuration';

@@ -20,22 +20,18 @@ export class ApiKeysService {
       ...data,
       keyPrefix: rawKey.slice(0, 12),
       keyHash,
-      expiresAt: data.expiresInDays
-        ? new Date(Date.now() + data.expiresInDays * 24 * 60 * 60 * 1000)
-        : null,
+      expiresAt: data.expiresInDays ? new Date(Date.now() + data.expiresInDays * 24 * 60 * 60 * 1000) : undefined,
     });
 
-    await this.apiKeyRepo.save(apiKey);
+    const saved = await this.apiKeyRepo.save(apiKey);
 
     return {
-      ...apiKey,
+      ...saved,
       fullKey: rawKey, // Only returned once
     };
   }
 
   async findByKey(key: string): Promise<ApiKey | null> {
-    const [keyHash] = await bcrypt.hash(key, 12); // This won't work - we need to find by hash
-    // Actually we need to hash incoming key and compare
     const all = await this.apiKeyRepo.find();
     for (const ak of all) {
       if (await bcrypt.compare(key, ak.keyHash)) {

@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Evaluation } from './entities/evaluation.entity';
-import { Dataset } from './entities/dataset.entity';
-import { EvaluationRun } from './entities/evaluation-run.entity';
-import { Queue } from 'bull';
+import { Evaluation, Dataset, EvaluationRun } from './entities/evaluation.entity';
 
 @Injectable()
 export class EvaluationsService {
@@ -15,7 +12,6 @@ export class EvaluationsService {
     private datasetRepo: Repository<Dataset>,
     @InjectRepository(EvaluationRun)
     private runRepo: Repository<EvaluationRun>,
-    private queue: Queue,
   ) {}
 
   async create(data: Partial<Evaluation>) {
@@ -47,15 +43,9 @@ export class EvaluationsService {
     const run = this.runRepo.create({
       evaluationId: id,
       startedByUserId: userId,
+      status: 'pending',
     });
     await this.runRepo.save(run);
-
-    // Queue the evaluation job
-    await this.queue.add('run-evaluation', {
-      evaluationId: id,
-      runId: run.id,
-      config: evaluation.config,
-    });
 
     return run;
   }

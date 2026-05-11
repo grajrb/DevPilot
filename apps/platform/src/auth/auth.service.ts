@@ -19,7 +19,7 @@ export interface AuthResponse {
 }
 
 @Injectable()
-export class AuthService implements IAuthService {
+export class AuthService {
   constructor(
     @InjectRepository(User)
     private userRepo: Repository<User>,
