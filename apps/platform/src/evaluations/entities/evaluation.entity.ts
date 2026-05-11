@@ -8,9 +8,8 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
-import { User } from '../users/entities/user.entity';
-import { Dataset } from './dataset.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { User } from '../../users/entities/user.entity';
 
 export type EvaluationStatus = 'pending' | 'running' | 'completed' | 'failed';
 export type EvaluationType = 'correctness' | 'relevance' | 'faithfulness' | 'custom';
@@ -36,10 +35,6 @@ export class Evaluation {
   @Column({ length: 100 })
   type: EvaluationType;
 
-  @ManyToOne(() => Dataset)
-  @JoinColumn({ name: 'dataset_id' })
-  dataset: Dataset;
-
   @Column('uuid')
   datasetId: string;
 
@@ -60,10 +55,6 @@ export class Evaluation {
 
   @Column({ default: 'pending' })
   status: EvaluationStatus;
-
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'created_by' })
-  createdBy: User;
 
   @Column('uuid')
   createdByUserId: string;
@@ -89,7 +80,7 @@ export class EvaluationRun {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Evaluation, (eval) => eval.runs)
+  @ManyToOne(() => Evaluation, (evaluation) => evaluation.runs)
   @JoinColumn({ name: 'evaluation_id' })
   evaluation: Evaluation;
 
@@ -98,10 +89,6 @@ export class EvaluationRun {
 
   @Column({ default: 'running' })
   status: EvaluationStatus;
-
-  @ManyToOne(() => User)
-  @JoinColumn({ name: 'started_by' })
-  startedBy: User;
 
   @Column('uuid')
   startedByUserId: string;
@@ -199,7 +186,4 @@ export class Dataset {
 
   @UpdateDateColumn()
   updatedAt: Date;
-
-  @OneToMany(() => Evaluation, (eval) => eval.dataset)
-  evaluations: Evaluation[];
 }

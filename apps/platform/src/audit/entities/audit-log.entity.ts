@@ -6,8 +6,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
-import { User } from '../users/entities/user.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('audit_logs')
 export class AuditLog {

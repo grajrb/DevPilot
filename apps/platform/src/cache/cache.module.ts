@@ -1,5 +1,5 @@
-import { CacheModule, Module } from '@nestjs/common';
-import { RedisModule } from '@nestjs/redis';
+import { Module } from '@nestjs/common';
+import { RedisModule } from '@nestjs-modules/ioredis';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 @Module({
@@ -7,14 +7,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     RedisModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        host: config.get<string>('redis.host'),
-        port: config.get<number>('redis.port'),
-        password: config.get<string>('redis.password'),
-        db: config.get<number>('redis.db'),
+        type: 'single',
+        url: `redis://${config.get<string>('redis.host') || 'localhost'}:${config.get<number>('redis.port') || 6379}`,
       }),
       inject: [ConfigService],
     }),
   ],
-  exports: [CacheModule, RedisModule],
+  exports: [RedisModule],
 })
-export class CacheModule {} // Re-export from Nest
+export class RedisCacheModule {}

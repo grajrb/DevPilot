@@ -9,8 +9,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
-import { Role } from '../roles/entities/role.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { Role } from '../../roles/entities/role.entity';
 
 @Entity('users')
 export class User {

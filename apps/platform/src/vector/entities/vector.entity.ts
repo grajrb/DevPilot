@@ -6,7 +6,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 @Entity('vectors')
 export class Vector {
@@ -23,12 +23,8 @@ export class Vector {
   @Column('uuid')
   collectionId: string;
 
-  @Column('vector', {
-    type: 'vector',
-    dimension: 1536,
-    nullable: true,
-  })
-  embedding: number[] | null;
+  @Column('jsonb')
+  embedding: number[];
 
   @Column('text')
   content: string;

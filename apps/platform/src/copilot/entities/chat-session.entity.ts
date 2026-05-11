@@ -8,8 +8,8 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
-import { User } from '../users/entities/user.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { User } from '../../users/entities/user.entity';
 
 @Entity('chat_sessions')
 export class ChatSession {

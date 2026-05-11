@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import { Logger } from './common/logger';
-import { config } from './config/configuration';
+import configuration from './config/configuration';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -28,7 +28,8 @@ async function bootstrap() {
   app.setGlobalPrefix('api/v1');
 
   // Request logging (only in dev)
-  if (config.nodeEnv === 'development') {
+  const config = configuration();
+  if ((config as any).nodeEnv === 'development') {
     app.useLogger(new Logger());
   }
 
@@ -36,7 +37,7 @@ async function bootstrap() {
   await app.listen(port);
 
   new Logger().log(`Application is running on: http://localhost:${port}/api/v1`);
-  new Logger().log(`Environment: ${config.nodeEnv}`);
+  new Logger().log(`Environment: ${(config as any).nodeEnv}`);
 }
 
 bootstrap().catch((err) => {

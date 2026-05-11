@@ -4,7 +4,6 @@ import * as bcrypt from 'bcrypt';
 import { v4 as uuidv4 } from 'uuid';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { AuthService as IAuthService } from './interfaces/auth.service';
 import { User } from '../users/entities/user.entity';
 import { RefreshToken } from './entities/refresh-token.entity';
 import { ConfigService } from '@nestjs/config';
@@ -89,7 +88,7 @@ export class AuthService implements IAuthService {
 
   async validateToken(token: string): Promise<User | null> {
     try {
-      const payload = this.jwtService.verifyAsync(token);
+      const payload = await this.jwtService.verifyAsync(token);
       const user = await this.userRepo.findOne({
         where: { id: payload.sub },
         relations: ['tenant', 'roles', 'roles.permissions'],

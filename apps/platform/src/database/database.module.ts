@@ -5,19 +5,15 @@ import { Tenant } from '../tenants/entities/tenant.entity';
 import { User } from '../users/entities/user.entity';
 import { Role } from '../roles/entities/role.entity';
 import { Permission } from '../roles/entities/permission.entity';
+import { RefreshToken } from '../auth/entities/refresh-token.entity';
 import { ApiKey } from '../api-keys/entities/api-key.entity';
 import { AuditLog } from '../audit/entities/audit-log.entity';
-import { Service } from '../services/entities/service.entity';
+import { Service, ServiceEndpoint } from '../services/entities/service.entity';
 import { Documentation } from '../docs/entities/documentation.entity';
-import { Evaluation } from '../evaluations/entities/evaluation.entity';
-import { EvaluationRun } from '../evaluations/entities/evaluation-run.entity';
-import { EvaluationResult } from '../evaluations/entities/evaluation-result.entity';
-import { Dataset } from '../evaluations/entities/dataset.entity';
+import { Evaluation, EvaluationRun, EvaluationResult, Dataset } from '../evaluations/entities/evaluation.entity';
 import { LLMCall } from '../observability/entities/llm-call.entity';
-import { Trace } from '../observability/entities/trace.entity';
-import { TraceSpan } from '../observability/entities/trace-span.entity';
-import { ChatSession } from '../copilot/entities/chat-session.entity';
-import { ChatMessage } from '../copilot/entities/chat-message.entity';
+import { Trace, TraceSpan } from '../observability/entities/trace.entity';
+import { ChatSession, ChatMessage } from '../copilot/entities/chat-session.entity';
 import { Vector } from '../vector/entities/vector.entity';
 
 @Module({})
@@ -39,9 +35,11 @@ export class DatabaseModule {
               User,
               Role,
               Permission,
+              RefreshToken,
               ApiKey,
               AuditLog,
               Service,
+              ServiceEndpoint,
               Documentation,
               Evaluation,
               EvaluationRun,

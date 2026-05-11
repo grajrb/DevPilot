@@ -7,7 +7,7 @@ import {
   JoinColumn,
   OneToMany,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 export type TraceStatus = 'unset' | 'ok' | 'error';
 

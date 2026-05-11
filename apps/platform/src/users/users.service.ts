@@ -40,7 +40,11 @@ export class UsersService {
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
     await this.userRepo.update(id, dto);
-    return this.userRepo.findOne({ where: { id } });
+    const user = await this.userRepo.findOne({ where: { id } });
+    if (!user) {
+      throw new Error(`User with id ${id} not found`);
+    }
+    return user;
   }
 
   async delete(id: string): Promise<void> {

@@ -8,7 +8,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
 
 export type ServiceStatus = 'healthy' | 'degraded' | 'down';
 export type ServiceProtocol = 'http' | 'grpc' | 'graphql';

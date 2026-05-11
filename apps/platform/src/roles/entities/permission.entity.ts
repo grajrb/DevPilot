@@ -3,9 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
-  ManyToMany,
-  JoinTable,
-  OneToMany,
 } from 'typeorm';
 
 @Entity('permissions')
@@ -24,7 +21,4 @@ export class Permission {
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @ManyToMany(() => Role, (role) => role.permissions)
-  roles: Role[];
 }

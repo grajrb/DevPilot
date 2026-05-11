@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Service } from './entities/service.entity';
+import { CreateServiceDto } from './dto/create-service.dto';
+import { UpdateServiceDto } from './dto/update-service.dto';
 
 @Injectable()
 export class ServicesService {
@@ -15,20 +17,31 @@ export class ServicesService {
   }
 
   async findById(id: string) {
-    return this.serviceRepo.findOne({ where: { id }, relations: ['endpoints', 'tenant'] });
+    const service = await this.serviceRepo.findOne({ where: { id }, relations: ['endpoints', 'tenant'] });
+    if (!service) {
+      throw new NotFoundException(`Service with id ${id} not found`);
+    }
+    return service;
   }
 
-  async create(data: any) {
-    const service = this.serviceRepo.create(data);
+  async create(dto: CreateServiceDto) {
+    const service = this.serviceRepo.create(dto);
     return this.serviceRepo.save(service);
   }
 
-  async update(id: string, data: any) {
-    await this.serviceRepo.update(id, data);
-    return this.serviceRepo.findOne({ where: { id } });
+  async update(id: string, dto: UpdateServiceDto) {
+    await this.serviceRepo.update(id, dto);
+    const service = await this.serviceRepo.findOne({ where: { id }, relations: ['endpoints'] });
+    if (!service) {
+      throw new NotFoundException(`Service with id ${id} not found`);
+    }
+    return service;
   }
 
   async delete(id: string) {
-    await this.serviceRepo.delete(id);
+    const result = await this.serviceRepo.delete(id);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Service with id ${id} not found`);
+    }
   }
 }

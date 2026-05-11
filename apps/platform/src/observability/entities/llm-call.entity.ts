@@ -6,9 +6,9 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
-import { Tenant } from '../tenants/entities/tenant.entity';
-import { User } from '../users/entities/user.entity';
-import { ApiKey } from '../api-keys/entities/api-key.entity';
+import { Tenant } from '../../tenants/entities/tenant.entity';
+import { User } from '../../users/entities/user.entity';
+import { ApiKey } from '../../api-keys/entities/api-key.entity';
 
 @Entity('llm_calls')
 export class LLMCall {

@@ -1,9 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable } from 'typeorm';
 
 @Entity('roles')
 export class Role {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column('uuid')
+  tenantId: string;
 
   @Column({ length: 100 })
   name: string;
@@ -14,13 +17,8 @@ export class Role {
   @Column({ default: false })
   isSystem: boolean;
 
-  @ManyToMany(() => Permission)
-  @JoinTable({
-    name: 'role_permissions',
-    joinColumn: { name: 'role_id', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'permission_id', referencedColumnName: 'id' },
-  })
-  permissions: Permission[];
+  @Column('text', { array: true, default: [] })
+  permissionCodes: string[];
 
   @CreateDateColumn()
   createdAt: Date;
