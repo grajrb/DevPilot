@@ -6,10 +6,13 @@ const nextConfig = {
   env: {
     CUSTOM_KEY: process.env.CUSTOM_KEY,
   },
-  // Enable React strict mode
-  strictMode: true,
   // Output as standalone for containerization
   output: 'standalone',
+  // Path alias
+  webpack: (config, { isServer }) => {
+    config.resolve.alias['@'] = require('path').resolve(__dirname, '.');
+    return config;
+  },
   // Experimental features
   experimental: {
     serverComponentsExternalPackages: ['pg', 'pg-native'],

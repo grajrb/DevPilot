@@ -19,8 +19,8 @@ export class EvaluationsService {
   ) {}
 
   async create(data: Partial<Evaluation>) {
-    const eval = this.evalRepo.create(data);
-    return this.evalRepo.save(eval);
+    const evaluation = this.evalRepo.create(data);
+    return this.evalRepo.save(evaluation);
   }
 
   async findAll(tenantId: string) {
@@ -39,8 +39,8 @@ export class EvaluationsService {
   }
 
   async run(id: string, userId: string) {
-    const eval = await this.evalRepo.findOne({ where: { id } });
-    if (!eval) {
+    const evaluation = await this.evalRepo.findOne({ where: { id } });
+    if (!evaluation) {
       throw new Error('Evaluation not found');
     }
 
@@ -54,7 +54,7 @@ export class EvaluationsService {
     await this.queue.add('run-evaluation', {
       evaluationId: id,
       runId: run.id,
-      config: eval.config,
+      config: evaluation.config,
     });
 
     return run;

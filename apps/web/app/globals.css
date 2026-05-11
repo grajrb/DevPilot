@@ -8,9 +8,9 @@
     --color-secondary: 99, 102, 241; /* #6366F1 */
     --color-tertiary: 243, 135, 100; /* #F38764 */
     --color-neutral: 114, 120, 118; /* #727876 */
-    --font-headline: var(--font-headline);
-    --font-body: var(--font-body);
-    --font-mono: var(--font-mono);
+    --font-headline: 'Geist Sans', system-ui, sans-serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 
   * {

@@ -43,7 +43,7 @@ export class Evaluation {
   @Column('uuid')
   datasetId: string;
 
-  @Column('jsonb', default: [])
+  @Column('jsonb', { default: [] })
   metrics: Array<{
     name: string;
     threshold: number;
@@ -51,7 +51,7 @@ export class Evaluation {
     parameters?: Record<string, any>;
   }>;
 
-  @Column('jsonb', default: {})
+  @Column('jsonb', { default: {} })
   config: {
     batchSize: number;
     timeoutSeconds: number;
@@ -143,7 +143,7 @@ export class EvaluationResult {
   @Column('text')
   actual: string;
 
-  @Column('jsonb', default: [])
+  @Column('jsonb', { default: [] })
   metrics: Array<{
     metricName: string;
     score: number;

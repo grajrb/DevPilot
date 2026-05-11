@@ -75,7 +75,7 @@ export class AuthService implements IAuthService {
       email,
       passwordHash,
       name,
-      tenantId: tenantId || null, // Allow null for now, tenant assignment happens separately
+      tenantId: tenantId || null,
     });
 
     const saved = await this.userRepo.save(user);

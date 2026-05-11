@@ -10,17 +10,19 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TenantsModule } from './tenants/tenants.module';
 import { RolesModule } from './roles/roles.module';
+import { RBACModule } from './rbac/rbac.module';
 import { ServicesModule } from './services/services.module';
 import { ApiKeysModule } from './api-keys/api-keys.module';
 import { AuditModule } from './audit/audit.module';
 import { DocsModule } from './docs/docs.module';
 import { ObservabilityModule } from './observability/observability.module';
 import { EvaluationsModule } from './evaluations/evaluations.module';
-import { CacheModule } from './cache/cache.module';
+import { CopilotModule } from './copilot/copilot.module';
+import { VectorModule } from './vector/vector.module';
 import { QueueModule } from './queue/queue.module';
 
 // Config
-import { configuration } from './config/configuration';
+import configuration from './config/configuration';
 
 // Common
 import { CommonModule } from './common/common.module';
@@ -35,39 +37,31 @@ import { CommonModule } from './common/common.module';
     TypeOrmModule.forRootAsync({
       useFactory: () => ({
         type: 'postgres',
-        host: process.env.DB_HOST || 'localhost',
-        port: parseInt(process.env.DB_PORT) || 5432,
-        username: process.env.DB_USERNAME || 'postgres',
-        password: process.env.DB_PASSWORD || 'postgres',
-        database: process.env.DB_NAME || 'devpilot',
+        host: process.env['DB_HOST'] || 'localhost',
+        port: parseInt(process.env['DB_PORT']) || 5432,
+        username: process.env['DB_USERNAME'] || 'postgres',
+        password: process.env['DB_PASSWORD'] || 'postgres',
+        database: process.env['DB_NAME'] || 'devpilot',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
         migrations: [__dirname + '/database/migrations/**/*{.ts,.js}'],
-        migrationsRun: process.env.NODE_ENV === 'production',
-        synchronize: process.env.NODE_ENV !== 'production',
-        logging: process.env.NODE_ENV === 'development',
+        migrationsRun: process.env['NODE_ENV'] === 'production',
+        synchronize: process.env['NODE_ENV'] !== 'production',
+        logging: process.env['NODE_ENV'] === 'development',
         extra: {
-          connectionLimit: process.env.DB_POOL_MAX ?? 20,
+          connectionLimit: parseInt(process.env['DB_POOL_MAX']) || 20,
         },
       }),
     }),
     JwtModule.registerAsync({
       useFactory: () => ({
-        secret: process.env.JWT_SECRET || 'change-me-in-production',
+        secret: process.env['JWT_SECRET'] || 'change-me-in-production',
         signOptions: {
-          expiresIn: process.env.JWT_EXPIRES_IN || '15m',
+          expiresIn: process.env['JWT_EXPIRES_IN'] || '15m',
         },
       }),
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     ScheduleModule.forRoot(),
-    RedisModule.registerAsync({
-      useFactory: () => ({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT) || 6379,
-        password: process.env.REDIS_PASSWORD,
-        db: parseInt(process.env.REDIS_DB) || 0,
-      }),
-    }),
 
     // Application modules
     CommonModule,
@@ -84,7 +78,7 @@ import { CommonModule } from './common/common.module';
     EvaluationsModule,
     CopilotModule,
     VectorModule,
-    CacheModule,
+    // CacheModule, // Temporarily disabled - needs Redis provider
     QueueModule,
   ],
 })

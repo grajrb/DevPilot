@@ -1,28 +1,26 @@
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono, Geist } from 'next/font/google';
 import './globals.css';
-import { Sidebar } from '@/components/layout/Sidebar';
-import { Header } from '@/components/layout/Header';
-import { AuthProvider } from '@/lib/auth/AuthProvider';
-import { QueryProvider } from '@/lib/api/QueryProvider';
+// Import FontSource fonts
+import '@fontsource/geist-sans/300.css';
+import '@fontsource/geist-sans/400.css';
+import '@fontsource/geist-sans/500.css';
+import '@fontsource/geist-sans/600.css';
+import '@fontsource/geist-sans/700.css';
+import '@fontsource/inter/300.css';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
+import '@fontsource/jetbrains-mono/300.css';
+import '@fontsource/jetbrains-mono/400.css';
+import '@fontsource/jetbrains-mono/500.css';
+import '@fontsource/jetbrains-mono/600.css';
+import '@fontsource/jetbrains-mono/700.css';
 
-const geist = Geist({
-  subsets: ['latin'],
-  variable: '--font-headline',
-  display: 'swap',
-});
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-body',
-  display: 'swap',
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-mono',
-  display: 'swap',
-});
+import { Sidebar } from './components/layout/Sidebar';
+import { Header } from './components/layout/Header';
+import { AuthProvider } from '../lib/auth/AuthContext';
+import { QueryProvider } from '../lib/api/QueryProvider';
 
 export const metadata: Metadata = {
   title: 'DevPilot - Internal Developer Platform',
@@ -36,9 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body
-        className={`${geist.variable} ${inter.variable} ${jetbrainsMono.variable} font-sans antialiased bg-gray-950 text-gray-100`}
-      >
+      <body className="antialiased bg-gray-950 text-gray-100">
         <AuthProvider>
           <QueryProvider>
             <div className="flex h-screen overflow-hidden">

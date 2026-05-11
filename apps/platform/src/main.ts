@@ -20,7 +20,7 @@ async function bootstrap() {
 
   // CORS
   app.enableCors({
-    origin: process.env.CORS_ORIGIN?.split(',') || ['http://localhost:3000'],
+    origin: process.env['CORS_ORIGIN']?.split(',') || ['http://localhost:3000'],
     credentials: true,
   });
 
@@ -32,11 +32,11 @@ async function bootstrap() {
     app.useLogger(new Logger());
   }
 
-  const port = process.env.PORT || 3001;
+  const port = parseInt(process.env['PORT']) || 3001;
   await app.listen(port);
 
-  Logger.log(`Application is running on: http://localhost:${port}/api/v1`);
-  Logger.log(`Environment: ${config.nodeEnv}`);
+  new Logger().log(`Application is running on: http://localhost:${port}/api/v1`);
+  new Logger().log(`Environment: ${config.nodeEnv}`);
 }
 
 bootstrap().catch((err) => {
