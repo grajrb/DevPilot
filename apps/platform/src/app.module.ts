@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { ScheduleModule } from '@nestjs/schedule';
 
 // Modules
 import { AuthModule } from './auth/auth.module';
@@ -18,6 +19,7 @@ import { ObservabilityModule } from './observability/observability.module';
 import { EvaluationsModule } from './evaluations/evaluations.module';
 import { CopilotModule } from './copilot/copilot.module';
 import { VectorModule } from './vector/vector.module';
+import { TeamsModule } from './teams/teams.module';
 
 // Config
 import configuration from './config/configuration';
@@ -75,9 +77,10 @@ import { CommonModule } from './common/common.module';
     ObservabilityModule,
     EvaluationsModule,
     CopilotModule,
-VectorModule,
-        RedisCacheModule, // Enabled - uses Redis
-        QueueModule,
+    VectorModule,
+    TeamsModule,
+    RedisCacheModule, // Enabled - uses Redis
+    QueueModule,
   ],
 })
 export class AppModule {}
