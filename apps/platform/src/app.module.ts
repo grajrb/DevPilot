@@ -79,6 +79,8 @@ import { CommonModule } from './common/common.module';
     CopilotModule,
     VectorModule,
     TeamsModule,
+    DeploymentsModule,
+    SettingsModule,
     RedisCacheModule, // Enabled - uses Redis
     QueueModule,
   ],
