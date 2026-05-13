@@ -20,6 +20,10 @@ import { EvaluationsModule } from './evaluations/evaluations.module';
 import { CopilotModule } from './copilot/copilot.module';
 import { VectorModule } from './vector/vector.module';
 import { TeamsModule } from './teams/teams.module';
+import { DeploymentsModule } from './deployments/deployments.module';
+import { SettingsModule } from './settings/settings.module';
+import { RedisCacheModule } from './cache/cache.module';
+import { QueueModule } from './queue/queue.module';
 
 // Config
 import configuration from './config/configuration';
@@ -38,7 +42,7 @@ import { CommonModule } from './common/common.module';
       useFactory: () => ({
         type: 'postgres',
         host: process.env['DB_HOST'] || 'localhost',
-        port: parseInt(process.env['DB_PORT']) || 5432,
+        port: parseInt(process.env['DB_PORT'], 10) || 5432,
         username: process.env['DB_USERNAME'] || 'postgres',
         password: process.env['DB_PASSWORD'] || 'postgres',
         database: process.env['DB_NAME'] || 'devpilot',
@@ -48,7 +52,7 @@ import { CommonModule } from './common/common.module';
         synchronize: process.env['NODE_ENV'] !== 'production',
         logging: process.env['NODE_ENV'] === 'development',
         extra: {
-          connectionLimit: parseInt(process.env['DB_POOL_MAX']) || 20,
+          connectionLimit: parseInt(process.env['DB_POOL_MAX'], 10) || 20,
         },
       }),
     }),
@@ -81,7 +85,7 @@ import { CommonModule } from './common/common.module';
     TeamsModule,
     DeploymentsModule,
     SettingsModule,
-    RedisCacheModule, // Enabled - uses Redis
+    RedisCacheModule,
     QueueModule,
   ],
 })
