@@ -1,25 +1,44 @@
+'use client';
+
+import { BarChart3, Server, Activity, DollarSign } from 'lucide-react';
+import { PageHeader } from '../components/ui/PageHeader';
+import { KpiCard, KpiCardGrid } from '../components/ui/KpiCard';
+
 export default function OverviewPage() {
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-headline font-bold text-white">Overview</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          { title: 'Services', value: '12', change: '+2', positive: true },
-          { title: 'API Calls (24h)', value: '1.2M', change: '+15%', positive: true },
-          { title: 'Avg Latency', value: '124ms', change: '-8%', positive: true },
-          { title: 'Monthly Cost', value: '$342', change: '+5%', positive: false },
-        ].map((stat) => (
-          <div key={stat.title} className="card">
-            <p className="text-sm text-gray-400">{stat.title}</p>
-            <div className="flex items-end justify-between mt-2">
-              <p className="text-2xl font-semibold text-white">{stat.value}</p>
-              <span className={`text-sm ${stat.positive ? 'text-green-400' : 'text-red-400'}`}>
-                {stat.change}
-              </span>
-            </div>
-          </div>
-        ))}
-      </div>
+      <PageHeader title="Overview" description="DevPilot platform summary" />
+
+      <KpiCardGrid>
+        <KpiCard
+          title="Services"
+          value="12"
+          change="+2"
+          trend="up"
+          icon={<Server size={16} />}
+        />
+        <KpiCard
+          title="API Calls (24h)"
+          value="1.2M"
+          change="+15%"
+          trend="up"
+          icon={<Activity size={16} />}
+        />
+        <KpiCard
+          title="Avg Latency"
+          value="124ms"
+          change="-8%"
+          trend="up"
+          icon={<BarChart3 size={16} />}
+        />
+        <KpiCard
+          title="Monthly Cost"
+          value="$342"
+          change="+5%"
+          trend="down"
+          icon={<DollarSign size={16} />}
+        />
+      </KpiCardGrid>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="card">
@@ -33,6 +52,30 @@ export default function OverviewPage() {
           <div className="h-64 bg-gray-800/50 rounded flex items-center justify-center text-gray-500">
             [Chart placeholder]
           </div>
+        </div>
+      </div>
+
+      <div className="card">
+        <h3 className="font-medium text-white mb-4">Recent Activity</h3>
+        <div className="space-y-3">
+          {[
+            { action: 'Service deployed', service: 'auth-service', user: 'Alice', time: '2 min ago' },
+            { action: 'API key created', service: 'Production', user: 'Bob', time: '15 min ago' },
+            { action: 'Evaluation completed', service: 'Customer Support QA', user: 'Alice', time: '1 hour ago' },
+            { action: 'Document uploaded', service: 'API Reference v2', user: 'Charlie', time: '3 hours ago' },
+          ].map((event, i) => (
+            <div key={i} className="flex items-center justify-between py-2 border-b border-gray-800 last:border-0">
+              <div className="flex items-center gap-2">
+                <span className="text-white text-sm">{event.action}</span>
+                <span className="text-gray-400 text-sm">—</span>
+                <span className="text-teal-400 text-sm font-mono">{event.service}</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-gray-500 text-xs">{event.user}</span>
+                <span className="text-gray-500 text-xs">{event.time}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
