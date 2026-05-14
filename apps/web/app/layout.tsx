@@ -25,6 +25,10 @@ import { QueryProvider } from '../lib/api/QueryProvider';
 export const metadata: Metadata = {
   title: 'DevPilot - Internal Developer Platform',
   description: 'Multi-tenant developer platform with AI copilot and LLM observability',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -34,12 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased bg-gray-950 text-gray-100">
+      <body className="antialiased bg-gray-950 text-gray-100 font-body">
         <AuthProvider>
           <QueryProvider>
             <div className="flex h-screen overflow-hidden">
               <Sidebar />
-              <div className="flex-1 flex flex-col overflow-hidden">
+              <div className="flex-1 flex flex-col overflow-hidden md:ml-64">
                 <Header />
                 <main className="flex-1 overflow-auto p-6">
                   {children}
