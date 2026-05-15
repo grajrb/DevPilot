@@ -16,11 +16,12 @@ class DocumentService:
     def __init__(self, upload_dir: str = "./uploads"):
         self.upload_dir = upload_dir
         os.makedirs(upload_dir, exist_ok=True)
-        self.allowed_extensions = {'.pdf', '.txt', '.md'}
+        self.allowed_extensions = {'.pdf', '.txt', '.md', '.docx'}
         self.allowed_mime_types = {
             'application/pdf',
             'text/plain',
-            'text/markdown'
+            'text/markdown',
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         }
         self.max_file_size = 50 * 1024 * 1024  # 50MB
 
