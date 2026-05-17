@@ -1,18 +1,8 @@
-import { Module } from '@nestjs/common';
-import { RedisModule } from '@nestjs-modules/ioredis';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { Module, Global } from '@nestjs/common';
 
+@Global()
 @Module({
-  imports: [
-    RedisModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: async (config: ConfigService) => ({
-        type: 'single',
-        url: `redis://${config.get<string>('redis.host') || 'localhost'}:${config.get<number>('redis.port') || 6379}`,
-      }),
-      inject: [ConfigService],
-    }),
-  ],
-  exports: [RedisModule],
+  imports: [],
+  exports: [],
 })
 export class RedisCacheModule {}

@@ -15,7 +15,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         },
         defaultJobOptions: {
           attempts: 3,
-          backoff: 'exponential',
+          backoff: {
+            type: 'exponential',
+            delay: 1000,
+          },
         },
       }),
       inject: [ConfigService],

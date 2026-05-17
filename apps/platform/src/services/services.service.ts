@@ -25,7 +25,7 @@ export class ServicesService {
   }
 
   async create(dto: CreateServiceDto) {
-    const service = this.serviceRepo.create(dto);
+    const service = this.serviceRepo.create(dto as any);
     return this.serviceRepo.save(service);
   }
 

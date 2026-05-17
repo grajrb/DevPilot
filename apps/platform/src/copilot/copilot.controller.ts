@@ -39,8 +39,8 @@ export class CopilotController {
   @Roles('copilot:use')
   @ApiOperation({ summary: 'Add message to session' })
   @ApiBearerAuth()
-  addMessage(@Param('id') sessionId: string, @Body() dto: { role: string; content: string }) {
-    return this.copilotService.addMessage(sessionId, dto.role, dto.content);
+  addMessage(@Param('id') sessionId: string, @Body() dto: { role: 'system' | 'user' | 'assistant'; content: string; tokenCount?: number }) {
+    return this.copilotService.addMessage(sessionId, dto.role, dto.content, dto.tokenCount);
   }
 
   @Delete('sessions/:id')

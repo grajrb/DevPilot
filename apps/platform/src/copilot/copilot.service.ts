@@ -32,7 +32,7 @@ export class CopilotService {
     });
   }
 
-  async addMessage(sessionId: string, role: string, content: string, tokenCount?: number) {
+  async addMessage(sessionId: string, role: 'system' | 'user' | 'assistant', content: string, tokenCount?: number) {
     const message = this.messageRepo.create({
       sessionId,
       role,

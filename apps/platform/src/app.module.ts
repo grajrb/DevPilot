@@ -3,7 +3,6 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
-import { ScheduleModule } from '@nestjs/schedule';
 
 // Modules
 import { AuthModule } from './auth/auth.module';
@@ -65,7 +64,6 @@ import { CommonModule } from './common/common.module';
       }),
     }),
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    ScheduleModule.forRoot(),
 
     // Application modules
     CommonModule,

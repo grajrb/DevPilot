@@ -4,9 +4,9 @@ import { Repository } from 'typeorm';
 import { Deployment } from './entities/deployment.entity';
 import { CreateDeploymentDto } from './dto/create-deployment.dto';
 import { UpdateDeploymentDto } from './dto/update-deployment.dto';
-import { TenantsService } from '../../tenants/tenants.service';
-import { ServicesService } from '../../services/services.service';
-import { UsersService } from '../../users/users.service';
+import { TenantsService } from '../tenants/tenants.service';
+import { ServicesService } from '../services/services.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class DeploymentsService {

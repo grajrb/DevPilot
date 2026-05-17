@@ -3,4 +3,5 @@ export class CreateTeamDto {
   description?: string;
   ownerId: string;
   memberIds?: string[];
+  tenantId?: string;
 }

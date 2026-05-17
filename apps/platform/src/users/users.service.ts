@@ -13,8 +13,15 @@ export class UsersService {
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
-    const user = this.userRepo.create(dto);
-    return this.userRepo.save(user);
+    const user = this.userRepo.create({
+      email: dto.email,
+      passwordHash: dto.password,
+      name: dto.name,
+      avatarUrl: dto.avatarUrl,
+      tenantId: dto.tenantId,
+      isActive: dto.isActive,
+    } as any);
+    return this.userRepo.save(user) as unknown as User;
   }
 
   async findById(id: string): Promise<User | null> {
@@ -39,7 +46,9 @@ export class UsersService {
   }
 
   async update(id: string, dto: UpdateUserDto): Promise<User> {
-    await this.userRepo.update(id, dto);
+    const updateData: any = { ...dto };
+    delete updateData.roles;
+    await this.userRepo.update(id, updateData);
     const user = await this.userRepo.findOne({ where: { id } });
     if (!user) {
       throw new Error(`User with id ${id} not found`);

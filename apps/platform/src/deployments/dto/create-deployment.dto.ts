@@ -4,4 +4,5 @@ export class CreateDeploymentDto {
   status?: 'pending' | 'deploying' | 'success' | 'failed';
   deployedById?: string;
   logs?: string;
+  tenantId?: string;
 }

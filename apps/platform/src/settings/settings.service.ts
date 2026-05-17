@@ -4,8 +4,8 @@ import { Repository } from 'typeorm';
 import { Setting } from './entities/setting.entity';
 import { UpsertSettingDto } from './dto/upsert-setting.dto';
 import { SettingResponseDto } from './dto/setting-response.dto';
-import { TenantsService } from '../../tenants/tenants.service';
-import { UsersService } from '../../users/users.service';
+import { TenantsService } from '../tenants/tenants.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class SettingsService {
